@@ -9,6 +9,50 @@
     <script src="scripts/calculator.js"></script>
 </head>
 <body>
-	
+	<h1>Waitstaff Calculator</h1>
+  <section class="details">
+    <h2>Enter the Meal Details</h2>
+  	<form name="calculatorForm" class="clearfix">
+      <div>
+        <label for="price">Base Meal Price: $</label>
+        <input type="number" id="price">
+      </div>
+      <div>
+        <label for="tax">Tax Rate: %</label>
+        <input type="number" id="tax">
+      </div>
+      <div>
+        <label for="tip">Tip Percentage: %</label>
+        <input type="number" id="tip">
+      </div>
+      <button type="button" value="clear">Clear</button>
+      <button type="submit" value="submit" class="submit">Submit</button>
+  	</form>
+  </section>
+  <section class="results">
+    <section>
+      <h2>Customer Charges</h2>
+      <dl>
+        <dt>Subtotal</dt>
+        <dd>0</dd>
+        <dt>Tip</dt>
+        <dd>0</dd>
+        <dt class="total">Total</dt>
+        <dd>0</dd>
+      </dl>
+    </section>
+    <section>
+      <h2>My Earnings Info</h2>
+      <dl>
+        <dt>Top Total</dt>
+        <dd>0</dd>
+        <dt>Meal Count</dt>
+        <dd>0</dd>
+        <dt>Average tip per meal</dt>
+        <dd>0</dd>
+      </dl>
+    </section>
+  </section>
+  <button type="button" value="reset">Reset</button>
 </body>
 </html>
