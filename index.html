@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="calculatorApp" ng-controller="myCtrl">
+<html lang="en" ng-app="calculatorApp" ng-controller="myCtrl as vm">
 <head>
 	<meta charset="UTF-8">
 	<title>Waitstaff Calculator</title>
@@ -12,22 +12,22 @@
 	<h1>Waitstaff Calculator</h1>
   <section class="details">
     <h2>Enter the Meal Details</h2>
-  	<form name="calculatorForm" novalidate ng-submit="submit()">
+  	<form name="vm.calculatorForm" novalidate ng-submit="submit()" class="clearfix">
       <div>
         <label for="price">Base Meal Price: $</label>
-        <input type="number" id="price" ng-model="price" required>
+        <input type="number" id="price" ng-model="vm.price" required>
       </div>
       <div>
         <label for="tax">Tax Rate: %</label>
-        <input type="number" id="tax" ng-model="tax" required>
+        <input type="number" id="tax" ng-model="vm.tax" required>
       </div>
       <div>
         <label for="tip">Tip Percentage: %</label>
-        <input type="number" id="tip" ng-model="tip" required>
+        <input type="number" id="tip" ng-model="vm.tip" required>
       </div>
       <button type="reset" value="clear">Clear</button>
       <button type="submit" value="submit" class="submit">Submit</button>
-      <div ng-if="calculatorForm.$submitted" ng-messages="calculatorForm.$error" class="formErrors">
+      <div ng-if="vm.calculatorForm.$submitted" ng-messages="vm.calculatorForm.$error" class="formErrors">
         <span class="error" ng-message="required">All fields are required!</span>
         <span class="error" ng-message="number">You must supply only numeric vales!</span>
       </div>
@@ -38,25 +38,25 @@
       <h2>Customer Charges</h2>
       <dl>
         <dt>Subtotal</dt>
-        <dd>{{currentCharge.subtotal}}</dd>
+        <dd>{{vm.currentCharge.subtotal}}</dd>
         <dt>Tip</dt>
-        <dd>{{currentCharge.tip}}</dd>
+        <dd>{{vm.currentCharge.tip}}</dd>
         <dt class="total">Total</dt>
-        <dd class="total">{{currentCharge.total}}</dd>
+        <dd class="total">{{vm.currentCharge.total}}</dd>
       </dl>
     </section>
     <section>
       <h2>My Earnings Info</h2>
       <dl>
         <dt>Tip Total</dt>
-        <dd>{{tipTotal}}</dd>
+        <dd>{{vm.tipTotal}}</dd>
         <dt>Meal Count</dt>
-        <dd>{{mealCount}}</dd>
+        <dd>{{vm.mealCount}}</dd>
         <dt>Average tip per meal</dt>
-        <dd>{{avgTip}}</dd>
+        <dd>{{vm.avgTip}}</dd>
       </dl>
     </section>
   </section>
-  <button type="button" ng-click="reset()">Reset</button>
+  <button type="button" ng-click="vm.reset()">Reset</button>
 </body>
 </html>

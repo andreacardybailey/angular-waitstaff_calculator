@@ -1,10 +1,11 @@
 var app = angular.module('calculatorApp', ['ngMessages']);
-app.controller('myCtrl', ['$scope', function($scope) {
-  $scope.tipTotal = 0;
-  $scope.mealCount = 0;
-  $scope.avgTip = 0;
-  $scope.charges = [];
-  $scope.currentCharge = {
+app.controller('myCtrl', function($scope) {
+  var vm = this;
+  vm.tipTotal = 0;
+  vm.mealCount = 0;
+  vm.avgTip = 0;
+  vm.charges = [];
+  vm.currentCharge = {
     subtotal: 0,
     tip:0,
     total:0
@@ -17,69 +18,69 @@ app.controller('myCtrl', ['$scope', function($scope) {
     return Number(Math.round(value + 'e' + 2)+ 'e-' + 2);
   }
 
-  $scope.addCharges = function(subtotal,tipAmt,total) {
+  vm.addCharges = function(subtotal,tipAmt,total) {
     if( subtotal && tipAmt ) {
       var obj = {
         subtotal: round(subtotal),
         tip: round(tipAmt),
         total: total
       };
-      $scope.charges.push(obj);
+      vm.charges.push(obj);
       /* 
         * copy obj using angular.extend
       */
-      angular.extend( $scope.currentCharge, $scope.charges[$scope.charges.length - 1] );
+      angular.extend( vm.currentCharge, vm.charges[vm.charges.length - 1] );
       /* 
         * convert all props of 'currentCharge' to be strings with 2 decimal places
       */
-      Object.keys($scope.currentCharge).forEach(function(key,index) {
-        $scope.currentCharge[key] = $scope.currentCharge[key].toFixed(2);
+      Object.keys(vm.currentCharge).forEach(function(key,index) {
+        vm.currentCharge[key] = vm.currentCharge[key].toFixed(2);
       });
     }
   }
 
   $scope.submit = function() {
-    if( $scope.calculatorForm.$valid ) {
-      $scope.validForm = true;
+    if( vm.calculatorForm.$valid ) {
+      vm.validForm = true;
 
-      $scope.subtotal = $scope.price + $scope.tax/100 * $scope.price;
-      $scope.tipAmt = $scope.subtotal * ($scope.tip/100);
-      $scope.total = $scope.subtotal + $scope.tipAmt;
-      $scope.addCharges( $scope.subtotal, $scope.tipAmt, $scope.total );
+      vm.subtotal = vm.price + vm.tax/100 * vm.price;
+      vm.tipAmt = vm.subtotal * (vm.tip/100);
+      vm.total = vm.subtotal + vm.tipAmt;
+      vm.addCharges( vm.subtotal, vm.tipAmt, vm.total );
 
-      $scope.mealCount = $scope.charges.length;
-      $scope.tipTotal = 0;
+      vm.mealCount = vm.charges.length;
+      vm.tipTotal = 0;
       /* 
         * add up tips
       */
-      for (var i=0; i < $scope.mealCount; i++) {
-        $scope.tipTotal += $scope.charges[i].tip;
+      for (var i=0; i < vm.mealCount; i++) {
+        vm.tipTotal += vm.charges[i].tip;
       }
 
-      $scope.avgTip = $scope.tipTotal / $scope.mealCount;
+      vm.avgTip = vm.tipTotal / vm.mealCount;
       /* 
         * account for JS number handling errors
       */
-      $scope.tipTotal = $scope.tipTotal.toFixed(2);
-      $scope.avgTip = $scope.avgTip.toFixed(2);
+      vm.tipTotal = vm.tipTotal.toFixed(2);
+      vm.avgTip = vm.avgTip.toFixed(2);
     }
   }
 
-  $scope.reset = function() {
-    $scope.calculatorForm.$setPristine();
-    $scope.price = "";
-    $scope.tax = "";
-    $scope.tip = "";
-    $scope.tipTotal = 0;
-    $scope.mealCount = 0;
-    $scope.avgTip = 0;
-    $scope.charges = [];
-    $scope.currentCharge = {
+  vm.reset = function() {
+    vm.calculatorForm.$setPristine();
+    vm.price = "";
+    vm.tax = "";
+    vm.tip = "";
+    vm.tipTotal = 0;
+    vm.mealCount = 0;
+    vm.avgTip = 0;
+    vm.charges = [];
+    vm.currentCharge = {
       subtotal: 0,
       tip:0,
       total:0
     }
-    $scope.validForm = false;
+    vm.validForm = false;
   }
 
-}]);
+});
