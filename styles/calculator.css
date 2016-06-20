@@ -77,11 +77,29 @@ dt, label {
   clear: left;
   width: 9.7rem;
   text-align: right;
+  margin-right: .3rem;
 }
 dt:after {
   content: ":";
 }
+dt.total, dd.total {
+  border-top: 1px solid #000;
+  padding-top: .5rem;
+}
 dd {
   margin: 0 0 0 6.9rem;
   padding: 0 0 .5rem 0;
+}
+
+.formErrors {
+  clear: both;
+  padding-top: 1rem;
+  text-align: center;
+}
+
+.error { 
+  color: red; 
+}
+.ng-submitted .ng-invalid { 
+  border: 1px solid red; 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="calculatorApp" ng-controller="myCtrl">
 <head>
 	<meta charset="UTF-8">
 	<title>Waitstaff Calculator</title>
@@ -12,21 +12,25 @@
 	<h1>Waitstaff Calculator</h1>
   <section class="details">
     <h2>Enter the Meal Details</h2>
-  	<form name="calculatorForm" class="clearfix">
+  	<form name="calculatorForm" novalidate ng-submit="submit()">
       <div>
         <label for="price">Base Meal Price: $</label>
-        <input type="number" id="price">
+        <input type="number" id="price" ng-model="price" required>
       </div>
       <div>
         <label for="tax">Tax Rate: %</label>
-        <input type="number" id="tax">
+        <input type="number" id="tax" ng-model="tax" required>
       </div>
       <div>
         <label for="tip">Tip Percentage: %</label>
-        <input type="number" id="tip">
+        <input type="number" id="tip" ng-model="tip" required>
       </div>
-      <button type="button" value="clear">Clear</button>
+      <button type="reset" value="clear">Clear</button>
       <button type="submit" value="submit" class="submit">Submit</button>
+      <div ng-if="calculatorForm.$submitted" ng-messages="calculatorForm.$error" class="formErrors">
+        <span class="error" ng-message="required">All fields are required!</span>
+        <span class="error" ng-message="number">You must supply only numeric vales!</span>
+      </div>
   	</form>
   </section>
   <section class="results">
@@ -34,25 +38,25 @@
       <h2>Customer Charges</h2>
       <dl>
         <dt>Subtotal</dt>
-        <dd>0</dd>
+        <dd>{{currentCharge.subtotal}}</dd>
         <dt>Tip</dt>
-        <dd>0</dd>
+        <dd>{{currentCharge.tip}}</dd>
         <dt class="total">Total</dt>
-        <dd>0</dd>
+        <dd class="total">{{currentCharge.total}}</dd>
       </dl>
     </section>
     <section>
       <h2>My Earnings Info</h2>
       <dl>
-        <dt>Top Total</dt>
-        <dd>0</dd>
+        <dt>Tip Total</dt>
+        <dd>{{tipTotal}}</dd>
         <dt>Meal Count</dt>
-        <dd>0</dd>
+        <dd>{{mealCount}}</dd>
         <dt>Average tip per meal</dt>
-        <dd>0</dd>
+        <dd>{{avgTip}}</dd>
       </dl>
     </section>
   </section>
-  <button type="button" value="reset">Reset</button>
+  <button type="button" ng-click="reset()">Reset</button>
 </body>
 </html>
