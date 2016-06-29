@@ -1,5 +1,5 @@
 var app = angular.module('calculatorApp', ['ngMessages']);
-app.controller('myCtrl', function($scope) {
+app.controller('myCtrl', function() {
   var vm = this;
   vm.tipTotal = 0;
   vm.mealCount = 0;
@@ -39,7 +39,7 @@ app.controller('myCtrl', function($scope) {
     }
   }
 
-  $scope.submit = function() {
+  vm.submit = function() {
     if( vm.calculatorForm.$valid ) {
       vm.validForm = true;
 
