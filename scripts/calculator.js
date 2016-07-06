@@ -1,23 +1,42 @@
-var app = angular.module('calculatorApp', ['ngMessages']);
-app.controller('myCtrl', function() {
+var app = angular.module('calculatorApp', ['ngMessages','ngRoute']);
+app.config(['$routeProvider', function($routeProvider){
+  // if users try to visit any routes other than the three that have been explicitly defined, they should be redirected to the index of the site.
+  $routeProvider
+  .when('/', {
+    templateUrl : 'home.html',
+    activetab: 'home'
+  })
+  .when('/newMeal', {
+    templateUrl : 'newMeal.html',
+    controller : 'MealCtrl',
+    controllerAs: 'vm',
+    activetab: 'meal'
+  })
+  .when('/myEarnings', {
+    templateUrl : 'myEarnings.html',
+    controller : 'EarningsCtrl',
+    controllerAs: 'vm',
+    activetab: 'earnings'
+  })
+  .otherwise('/');
+}])
+.run(['$rootScope','$route', function($rootScope,$route) {
+  $rootScope.charges = [];
+  $rootScope.tipTotal = 0;
+  $rootScope.mealCount = 0;
+  $rootScope.avgTip = 0;
+  $rootScope.route = $route;
+}])
+.controller('MealCtrl', ['$rootScope', function($rootScope) {
   var vm = this;
-  vm.tipTotal = 0;
-  vm.mealCount = 0;
-  vm.avgTip = 0;
-  vm.charges = [];
   vm.currentCharge = {
     subtotal: 0,
     tip:0,
     total:0
   }
-  /*
-   * round number to 2 decimals
-   * retain JS number type
-  */
   var round = function(value) {
     return Number(Math.round(value + 'e' + 2)+ 'e-' + 2);
   }
-
   vm.addCharges = function(subtotal,tipAmt,total) {
     if( subtotal && tipAmt ) {
       var obj = {
@@ -25,11 +44,11 @@ app.controller('myCtrl', function() {
         tip: round(tipAmt),
         total: total
       };
-      vm.charges.push(obj);
+      $rootScope.charges.push(obj);
       /* 
         * copy obj using angular.extend
       */
-      angular.extend( vm.currentCharge, vm.charges[vm.charges.length - 1] );
+      angular.extend( vm.currentCharge, $rootScope.charges[$rootScope.charges.length - 1] );
       /* 
         * convert all props of 'currentCharge' to be strings with 2 decimal places
       */
@@ -38,49 +57,40 @@ app.controller('myCtrl', function() {
       });
     }
   }
-
   vm.submit = function() {
     if( vm.calculatorForm.$valid ) {
-      vm.validForm = true;
 
       vm.subtotal = vm.price + vm.tax/100 * vm.price;
       vm.tipAmt = vm.subtotal * (vm.tip/100);
       vm.total = vm.subtotal + vm.tipAmt;
       vm.addCharges( vm.subtotal, vm.tipAmt, vm.total );
 
-      vm.mealCount = vm.charges.length;
-      vm.tipTotal = 0;
+      $rootScope.mealCount = $rootScope.charges.length;
+      $rootScope.tipTotal = 0;
       /* 
         * add up tips
       */
-      for (var i=0; i < vm.mealCount; i++) {
-        vm.tipTotal += vm.charges[i].tip;
+      for (var i=0; i < $rootScope.mealCount; i++) {
+        $rootScope.tipTotal += $rootScope.charges[i].tip;
       }
 
-      vm.avgTip = vm.tipTotal / vm.mealCount;
+      $rootScope.avgTip = $rootScope.tipTotal / $rootScope.mealCount;
       /* 
         * account for JS number handling errors
       */
-      vm.tipTotal = vm.tipTotal.toFixed(2);
-      vm.avgTip = vm.avgTip.toFixed(2);
+      $rootScope.tipTotal = $rootScope.tipTotal.toFixed(2);
+      $rootScope.avgTip = $rootScope.avgTip.toFixed(2);
     }
   }
+}])
+.controller('EarningsCtrl', ['$rootScope', function($rootScope) {
+  var vm = this;
 
   vm.reset = function() {
-    vm.calculatorForm.$setPristine();
-    vm.price = "";
-    vm.tax = "";
-    vm.tip = "";
-    vm.tipTotal = 0;
-    vm.mealCount = 0;
-    vm.avgTip = 0;
-    vm.charges = [];
-    vm.currentCharge = {
-      subtotal: 0,
-      tip:0,
-      total:0
-    }
-    vm.validForm = false;
+    $rootScope.tipTotal = 0;
+    $rootScope.mealCount = 0;
+    $rootScope.avgTip = 0;
+    $rootScope.charges = [];
   }
+}]);
 
-});

@@ -4,11 +4,33 @@
   box-sizing: border-box;
 }
 html {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
   width: 70%;
   min-width: 800px;
   margin: 0 auto;
+}
+a, a:visited {
+  text-decoration: underline;
+  color: #b82c02;
+}
+a:hover {
+  text-decoration: none;
+}
+a.current {
+  color: #000;
+  text-decoration: none;
+  font-weight: 700;
+}
+nav {
+  text-align: center;
+}
+nav ul {
+  list-style-type: none;
+}
+nav ul li {
+  display: inline-block;
+  margin: 0 .5rem;
 }
 h1, h2 {
   font-weight: 500;
@@ -27,15 +49,41 @@ h2 {
   border-left: 1px solid #000;
   padding: .5rem;
 }
+.home {
+  margin: 2rem auto;
+  text-align: center;
+  font-size: 1.1rem;
+}
 .details {
   width: 50%;
-  margin-right: 10%;
-  float: left;
+  margin: 1rem auto;
   border: 1px solid #000;
 }
 .details h2 {
   border: none;
   border-bottom: 1px solid #000;
+}
+dl {
+  /*border: 1px solid #000;*/
+  padding: 0.6rem;
+}
+dt, label {
+  float: left;
+  clear: left;
+  width: 9.7rem;
+  text-align: right;
+  margin-right: .3rem;
+}
+dt:after {
+  content: ":";
+}
+dt.total, dd.total {
+  border-top: 1px solid #000;
+  padding-top: .5rem;
+}
+dd {
+  margin: 0 0 0 6.9rem;
+  padding: 0 0 .5rem 0;
 }
 form {
   padding: 0.6rem;
@@ -58,37 +106,12 @@ button {
 button.submit {
   margin-right: 1rem;
 }
-.results {
-  width: 40%;
-  float: left;
-}
-.results section:last-child {
-  margin-top: 1.5rem;
+button.reset {
+  margin-right: .6rem;
+  margin-bottom: 1.1rem;
 }
 label {
   margin-right: .2rem;
-}
-dl {
-  border: 1px solid #000;
-  padding: 0.6rem;
-}
-dt, label {
-  float: left;
-  clear: left;
-  width: 9.7rem;
-  text-align: right;
-  margin-right: .3rem;
-}
-dt:after {
-  content: ":";
-}
-dt.total, dd.total {
-  border-top: 1px solid #000;
-  padding-top: .5rem;
-}
-dd {
-  margin: 0 0 0 6.9rem;
-  padding: 0 0 .5rem 0;
 }
 
 .formErrors {
@@ -97,10 +120,11 @@ dd {
 }
 
 .error { 
-  color: red; 
+  color: #b82c02;
+  font-weight: 700;
 }
 .ng-submitted .ng-invalid { 
-  border: 1px solid red; 
+  border: 1px solid #b82c02; 
 }
 
 .clearfix:after {
