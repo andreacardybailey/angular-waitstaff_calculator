@@ -1,26 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="calculatorApp">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Waitstaff Calculator</title>
-  <link href="https://fonts.googleapis.com/css?family=Yeseva+One|Montserrat:400+700|Source+Sans+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="styles/calculator.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-  <script src="angular/angular-route.min.js"></script>
-  <script src="scripts/calculator.js"></script>
+    <meta charset="UTF-8">
+    <title>Waitstaff Calculator</title>
+    <link href="https://fonts.googleapis.com/css?family=Yeseva+One|Montserrat:400+700|Source+Sans+Pro" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="styles/calculator.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="angular/angular-route.min.js"></script>
+    <script src="angular/angular-animate.min.js"></script>
+    <script src="scripts/calculator.js"></script>
 </head>
+
 <body>
-  <h1>Waitstaff Calculator</h1>
-  <nav>
-    <ul>
-      <li><a href="#/" ng-class="{'current': route.current.activetab == 'home'}">Home</a></li>
-      <li><a href="#/newMeal" ng-class="{'current': route.current.activetab == 'meal'}">New Meal</a></li>
-      <li><a href="#/myEarnings" ng-class="{'current': route.current.activetab == 'earnings'}">My Earnings</a></li>
-    </ul>
-  </nav>
-  <div ng-view>
-    <!-- this is where individual route templates are loaded -->
-  </div>
+    <h1>Waitstaff Calculator</h1>
+    <nav>
+        <ul>
+            <li>
+                <a href="#/" ng-class="{'current': route.current.activetab == 'home'}">Home</a>
+            </li>
+            <li>
+                <a href="#/newMeal" ng-class="{'current': route.current.activetab == 'meal'}">New Meal</a>
+            </li>
+            <li>
+                <a href="#/myEarnings" ng-class="{'current': route.current.activetab == 'earnings'}">My Earnings</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="animate-view-container">
+        <div ng-view class="animate-view">
+            <!-- this is where individual route templates are loaded -->
+        </div>
+    </div>
 </body>
+
 </html>
